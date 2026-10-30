@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design tokens as RGB triplets so Tailwind can apply alpha (see tailwind.config.ts). */
+:root {
+  color-scheme: light;
+  --page: 247 247 245;
+  --surface: 252 252 251;
+  --surface-2: 241 241 238;
+  --line: 225 224 217;
+  --ink: 11 11 11;
+  --ink-2: 82 81 78;
+  --muted: 120 118 112;
+  --brand: 42 120 214;
+  --brand-strong: 28 92 171;
+  --brand-soft: 222 235 251;
+  --danger: 208 59 59;
+  --danger-soft: 252 232 232;
+  --success: 0 120 0;
+  --success-soft: 226 244 226;
+
+  /* Category slots — fixed order, validated for colorblind separation */
+  --cat-1: 42 120 214;   /* blue    */
+  --cat-2: 235 104 52;   /* orange  */
+  --cat-3: 27 175 122;   /* aqua    */
+  --cat-4: 237 161 0;    /* yellow  */
+  --cat-5: 232 123 164;  /* magenta */
+  --cat-6: 0 131 0;      /* green   */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --page: 13 13 13;
+    --surface: 26 26 25;
+    --surface-2: 36 36 34;
+    --line: 50 50 47;
+    --ink: 240 239 236;
+    --ink-2: 195 194 183;
+    --muted: 150 148 141;
+    --brand: 57 135 229;
+    --brand-strong: 109 167 236;
+    --brand-soft: 24 42 66;
+    --danger: 230 103 103;
+    --danger-soft: 60 28 28;
+    --success: 12 163 12;
+    --success-soft: 20 48 20;
+
+    --cat-1: 57 135 229;
+    --cat-2: 217 89 38;
+    --cat-3: 25 158 112;
+    --cat-4: 201 133 0;
+    --cat-5: 213 81 129;
+    --cat-6: 0 131 0;
+  }
+}
+
+body {
+  @apply bg-page text-ink antialiased;
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-line bg-surface shadow-card;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-surface disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-brand text-white hover:bg-brand-strong;
+  }
+  .btn-secondary {
+    @apply btn border border-line bg-surface text-ink hover:bg-surface-2;
+  }
+  .btn-danger {
+    @apply btn bg-danger text-white hover:opacity-90;
+  }
+  .btn-ghost {
+    @apply btn text-ink-2 hover:bg-surface-2 hover:text-ink;
+  }
+  .input {
+    @apply block w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-ink placeholder:text-muted focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30;
+  }
+  .input-error {
+    @apply border-danger focus:border-danger focus:ring-danger/30;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-ink;
+  }
+}
+
+/* Make the native date picker icon visible in dark mode */
+@media (prefers-color-scheme: dark) {
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.8);
+  }
+}
